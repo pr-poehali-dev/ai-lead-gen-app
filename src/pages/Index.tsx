@@ -252,62 +252,66 @@ const Index = () => {
               </div>
             )}
 
-            <div className="flex gap-3">
+            <div className="flex flex-wrap gap-3">
               <Button 
                 onClick={generateLeads} 
                 disabled={isGenerating}
-                className="flex-1 md:flex-none"
+                className="flex-1 md:flex-none min-w-[200px]"
                 size="lg"
               >
                 <Icon name="Sparkles" size={20} className="mr-2" />
                 {isGenerating ? 'Генерация...' : 'Сгенерировать лиды'}
               </Button>
 
-              {leads.length > 0 && (
-                <div className="flex gap-2">
-                  <DropdownMenu>
-                    <DropdownMenuTrigger asChild>
-                      <Button variant="outline" size="lg">
-                        <Icon name="Download" size={20} className="mr-2" />
-                        Экспорт
-                      </Button>
-                    </DropdownMenuTrigger>
-                    <DropdownMenuContent align="end">
-                      <DropdownMenuItem onClick={() => exportData('csv')}>
-                        <Icon name="FileSpreadsheet" size={16} className="mr-2" />
-                        CSV файл
-                      </DropdownMenuItem>
-                      <DropdownMenuItem onClick={() => exportData('excel')}>
-                        <Icon name="Sheet" size={16} className="mr-2" />
-                        Excel файл
-                      </DropdownMenuItem>
-                      <DropdownMenuItem onClick={() => exportData('pdf')}>
-                        <Icon name="FileText" size={16} className="mr-2" />
-                        PDF файл
-                      </DropdownMenuItem>
-                    </DropdownMenuContent>
-                  </DropdownMenu>
+              <Button 
+                variant="outline" 
+                onClick={() => exportData('csv')}
+                disabled={leads.length === 0}
+                size="lg"
+              >
+                <Icon name="FileSpreadsheet" size={20} className="mr-2" />
+                CSV
+              </Button>
 
-                  <DropdownMenu>
-                    <DropdownMenuTrigger asChild>
-                      <Button variant="outline" size="lg">
-                        <Icon name="Share2" size={20} className="mr-2" />
-                        Поделиться
-                      </Button>
-                    </DropdownMenuTrigger>
-                    <DropdownMenuContent align="end">
-                      <DropdownMenuItem onClick={() => shareToMessenger('whatsapp')}>
-                        <Icon name="MessageCircle" size={16} className="mr-2" />
-                        WhatsApp
-                      </DropdownMenuItem>
-                      <DropdownMenuItem onClick={() => shareToMessenger('telegram')}>
-                        <Icon name="Send" size={16} className="mr-2" />
-                        Telegram
-                      </DropdownMenuItem>
-                    </DropdownMenuContent>
-                  </DropdownMenu>
-                </div>
-              )}
+              <Button 
+                variant="outline" 
+                onClick={() => exportData('excel')}
+                disabled={leads.length === 0}
+                size="lg"
+              >
+                <Icon name="Sheet" size={20} className="mr-2" />
+                Excel
+              </Button>
+
+              <Button 
+                variant="outline" 
+                onClick={() => exportData('pdf')}
+                disabled={leads.length === 0}
+                size="lg"
+              >
+                <Icon name="FileText" size={20} className="mr-2" />
+                PDF
+              </Button>
+
+              <Button 
+                variant="outline" 
+                onClick={() => shareToMessenger('whatsapp')}
+                disabled={leads.length === 0}
+                size="lg"
+              >
+                <Icon name="MessageCircle" size={20} className="mr-2" />
+                WhatsApp
+              </Button>
+
+              <Button 
+                variant="outline" 
+                onClick={() => shareToMessenger('telegram')}
+                disabled={leads.length === 0}
+                size="lg"
+              >
+                <Icon name="Send" size={20} className="mr-2" />
+                Telegram
+              </Button>
             </div>
           </CardContent>
         </Card>
