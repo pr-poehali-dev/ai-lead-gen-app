@@ -195,6 +195,21 @@ const Index = () => {
                     <SelectItem value="Розница">Розница</SelectItem>
                     <SelectItem value="Производство">Производство</SelectItem>
                     <SelectItem value="Здравоохранение">Здравоохранение</SelectItem>
+                    <SelectItem value="Образование">Образование</SelectItem>
+                    <SelectItem value="Строительство">Строительство</SelectItem>
+                    <SelectItem value="Логистика">Логистика</SelectItem>
+                    <SelectItem value="Недвижимость">Недвижимость</SelectItem>
+                    <SelectItem value="Маркетинг">Маркетинг</SelectItem>
+                    <SelectItem value="Туризм">Туризм</SelectItem>
+                    <SelectItem value="E-commerce">E-commerce</SelectItem>
+                    <SelectItem value="Телекоммуникации">Телекоммуникации</SelectItem>
+                    <SelectItem value="Консалтинг">Консалтинг</SelectItem>
+                    <SelectItem value="Юридические услуги">Юридические услуги</SelectItem>
+                    <SelectItem value="Страхование">Страхование</SelectItem>
+                    <SelectItem value="Медиа">Медиа</SelectItem>
+                    <SelectItem value="Автомобильная">Автомобильная</SelectItem>
+                    <SelectItem value="Энергетика">Энергетика</SelectItem>
+                    <SelectItem value="Сельское хозяйство">Сельское хозяйство</SelectItem>
                   </SelectContent>
                 </Select>
               </div>
@@ -214,6 +229,26 @@ const Index = () => {
                     <SelectItem value="Екатеринбург">Екатеринбург</SelectItem>
                     <SelectItem value="Новосибирск">Новосибирск</SelectItem>
                     <SelectItem value="Казань">Казань</SelectItem>
+                    <SelectItem value="Нижний Новгород">Нижний Новгород</SelectItem>
+                    <SelectItem value="Челябинск">Челябинск</SelectItem>
+                    <SelectItem value="Самара">Самара</SelectItem>
+                    <SelectItem value="Омск">Омск</SelectItem>
+                    <SelectItem value="Ростов-на-Дону">Ростов-на-Дону</SelectItem>
+                    <SelectItem value="Уфа">Уфа</SelectItem>
+                    <SelectItem value="Красноярск">Красноярск</SelectItem>
+                    <SelectItem value="Воронеж">Воронеж</SelectItem>
+                    <SelectItem value="Пермь">Пермь</SelectItem>
+                    <SelectItem value="Волгоград">Волгоград</SelectItem>
+                    <SelectItem value="Краснодар">Краснодар</SelectItem>
+                    <SelectItem value="Саратов">Саратов</SelectItem>
+                    <SelectItem value="Тюмень">Тюмень</SelectItem>
+                    <SelectItem value="Тольятти">Тольятти</SelectItem>
+                    <SelectItem value="Ижевск">Ижевск</SelectItem>
+                    <SelectItem value="Барнаул">Барнаул</SelectItem>
+                    <SelectItem value="Иркутск">Иркутск</SelectItem>
+                    <SelectItem value="Хабаровск">Хабаровск</SelectItem>
+                    <SelectItem value="Владивосток">Владивосток</SelectItem>
+                    <SelectItem value="Махачкала">Махачкала</SelectItem>
                   </SelectContent>
                 </Select>
               </div>
