@@ -182,7 +182,10 @@ const Index = () => {
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 mb-6">
               <div className="space-y-2">
                 <Label htmlFor="industry">Отрасль</Label>
-                <Select value={formData.industry} onValueChange={(val) => setFormData({...formData, industry: val})}>
+                <Select 
+                  value={formData.industry || undefined} 
+                  onValueChange={(val) => setFormData({...formData, industry: val})}
+                >
                   <SelectTrigger id="industry">
                     <SelectValue placeholder="Выберите отрасль" />
                   </SelectTrigger>
@@ -198,7 +201,10 @@ const Index = () => {
 
               <div className="space-y-2">
                 <Label htmlFor="region">Регион</Label>
-                <Select value={formData.region} onValueChange={(val) => setFormData({...formData, region: val})}>
+                <Select 
+                  value={formData.region || undefined} 
+                  onValueChange={(val) => setFormData({...formData, region: val})}
+                >
                   <SelectTrigger id="region">
                     <SelectValue placeholder="Выберите регион" />
                   </SelectTrigger>
@@ -214,7 +220,10 @@ const Index = () => {
 
               <div className="space-y-2">
                 <Label htmlFor="size">Размер компании</Label>
-                <Select value={formData.companySize} onValueChange={(val) => setFormData({...formData, companySize: val})}>
+                <Select 
+                  value={formData.companySize || undefined} 
+                  onValueChange={(val) => setFormData({...formData, companySize: val})}
+                >
                   <SelectTrigger id="size">
                     <SelectValue placeholder="Выберите размер" />
                   </SelectTrigger>
