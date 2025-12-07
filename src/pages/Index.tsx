@@ -28,9 +28,9 @@ const Index = () => {
   const [progress, setProgress] = useState(0);
   const [leads, setLeads] = useState<Lead[]>([]);
   const [formData, setFormData] = useState({
-    industry: '',
-    region: '',
-    companySize: '',
+    industry: 'Технологии',
+    region: 'Москва',
+    companySize: '51-200',
     count: '10'
   });
 
@@ -183,7 +183,7 @@ const Index = () => {
               <div className="space-y-2">
                 <Label htmlFor="industry">Отрасль</Label>
                 <Select 
-                  value={formData.industry || undefined} 
+                  value={formData.industry} 
                   onValueChange={(val) => setFormData({...formData, industry: val})}
                 >
                   <SelectTrigger id="industry">
@@ -202,7 +202,7 @@ const Index = () => {
               <div className="space-y-2">
                 <Label htmlFor="region">Регион</Label>
                 <Select 
-                  value={formData.region || undefined} 
+                  value={formData.region} 
                   onValueChange={(val) => setFormData({...formData, region: val})}
                 >
                   <SelectTrigger id="region">
@@ -221,7 +221,7 @@ const Index = () => {
               <div className="space-y-2">
                 <Label htmlFor="size">Размер компании</Label>
                 <Select 
-                  value={formData.companySize || undefined} 
+                  value={formData.companySize} 
                   onValueChange={(val) => setFormData({...formData, companySize: val})}
                 >
                   <SelectTrigger id="size">
