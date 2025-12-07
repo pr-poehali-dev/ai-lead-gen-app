@@ -8,6 +8,8 @@ import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@
 import { Badge } from '@/components/ui/badge';
 import Icon from '@/components/ui/icon';
 import { Progress } from '@/components/ui/progress';
+import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger } from '@/components/ui/dropdown-menu';
+import ThemeToggle from '@/components/ThemeToggle';
 
 interface Lead {
   id: string;
@@ -62,24 +64,37 @@ const Index = () => {
     }, 200);
   };
 
+  const generateCSV = () => {
+    const headers = ['ID', 'Компания', 'Контакт', 'Email', 'Отрасль', 'Размер', 'Регион', 'Оценка', 'Статус'];
+    const csvContent = [
+      headers.join(','),
+      ...leads.map(lead => 
+        [lead.id, lead.company, lead.contact, lead.email, lead.industry, lead.size, lead.region, lead.score, lead.status].join(',')
+      )
+    ].join('\n');
+    return csvContent;
+  };
+
   const exportData = (format: 'pdf' | 'csv' | 'excel') => {
-    console.log(`Экспорт в формате ${format.toUpperCase()}`);
+    const csvContent = generateCSV();
+    const blob = new Blob([csvContent], { type: 'text/csv' });
+    const url = window.URL.createObjectURL(blob);
+    const a = document.createElement('a');
+    a.href = url;
+    a.download = `leads_${new Date().getTime()}.csv`;
+    a.click();
+  };
+
+  const shareToMessenger = (messenger: 'whatsapp' | 'telegram') => {
+    const csvContent = generateCSV();
+    const text = `Лиды (${leads.length} шт):\n\n${csvContent.split('\n').slice(0, 6).join('\n')}\n\n...и еще ${Math.max(0, leads.length - 5)} лидов`;
     
-    if (format === 'csv') {
-      const headers = ['ID', 'Компания', 'Контакт', 'Email', 'Отрасль', 'Размер', 'Регион', 'Оценка', 'Статус'];
-      const csvContent = [
-        headers.join(','),
-        ...leads.map(lead => 
-          [lead.id, lead.company, lead.contact, lead.email, lead.industry, lead.size, lead.region, lead.score, lead.status].join(',')
-        )
-      ].join('\n');
-      
-      const blob = new Blob([csvContent], { type: 'text/csv' });
-      const url = window.URL.createObjectURL(blob);
-      const a = document.createElement('a');
-      a.href = url;
-      a.download = `leads_${new Date().getTime()}.csv`;
-      a.click();
+    if (messenger === 'whatsapp') {
+      const url = `https://wa.me/?text=${encodeURIComponent(text)}`;
+      window.open(url, '_blank');
+    } else if (messenger === 'telegram') {
+      const url = `https://t.me/share/url?url=${encodeURIComponent('')}&text=${encodeURIComponent(text)}`;
+      window.open(url, '_blank');
     }
   };
 
@@ -102,11 +117,14 @@ const Index = () => {
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-slate-50 to-slate-100">
+    <div className="min-h-screen bg-gradient-to-br from-slate-50 to-slate-100 dark:from-slate-900 dark:to-slate-800 transition-colors">
       <div className="container mx-auto px-4 py-8 max-w-7xl">
-        <div className="mb-8">
-          <h1 className="text-4xl font-bold text-foreground mb-2">ИИ Генератор Лидов</h1>
-          <p className="text-muted-foreground text-lg">Интеллектуальная система для поиска и квалификации потенциальных клиентов</p>
+        <div className="mb-8 flex items-start justify-between">
+          <div>
+            <h1 className="text-4xl font-bold text-foreground mb-2">ИИ Генератор Лидов</h1>
+            <p className="text-muted-foreground text-lg">Интеллектуальная система для поиска и квалификации потенциальных клиентов</p>
+          </div>
+          <ThemeToggle />
         </div>
 
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-6 mb-8">
@@ -247,30 +265,47 @@ const Index = () => {
 
               {leads.length > 0 && (
                 <div className="flex gap-2">
-                  <Button 
-                    variant="outline" 
-                    onClick={() => exportData('pdf')}
-                    size="lg"
-                  >
-                    <Icon name="FileText" size={20} className="mr-2" />
-                    PDF
-                  </Button>
-                  <Button 
-                    variant="outline" 
-                    onClick={() => exportData('csv')}
-                    size="lg"
-                  >
-                    <Icon name="FileSpreadsheet" size={20} className="mr-2" />
-                    CSV
-                  </Button>
-                  <Button 
-                    variant="outline" 
-                    onClick={() => exportData('excel')}
-                    size="lg"
-                  >
-                    <Icon name="Sheet" size={20} className="mr-2" />
-                    Excel
-                  </Button>
+                  <DropdownMenu>
+                    <DropdownMenuTrigger asChild>
+                      <Button variant="outline" size="lg">
+                        <Icon name="Download" size={20} className="mr-2" />
+                        Экспорт
+                      </Button>
+                    </DropdownMenuTrigger>
+                    <DropdownMenuContent align="end">
+                      <DropdownMenuItem onClick={() => exportData('csv')}>
+                        <Icon name="FileSpreadsheet" size={16} className="mr-2" />
+                        CSV файл
+                      </DropdownMenuItem>
+                      <DropdownMenuItem onClick={() => exportData('excel')}>
+                        <Icon name="Sheet" size={16} className="mr-2" />
+                        Excel файл
+                      </DropdownMenuItem>
+                      <DropdownMenuItem onClick={() => exportData('pdf')}>
+                        <Icon name="FileText" size={16} className="mr-2" />
+                        PDF файл
+                      </DropdownMenuItem>
+                    </DropdownMenuContent>
+                  </DropdownMenu>
+
+                  <DropdownMenu>
+                    <DropdownMenuTrigger asChild>
+                      <Button variant="outline" size="lg">
+                        <Icon name="Share2" size={20} className="mr-2" />
+                        Поделиться
+                      </Button>
+                    </DropdownMenuTrigger>
+                    <DropdownMenuContent align="end">
+                      <DropdownMenuItem onClick={() => shareToMessenger('whatsapp')}>
+                        <Icon name="MessageCircle" size={16} className="mr-2" />
+                        WhatsApp
+                      </DropdownMenuItem>
+                      <DropdownMenuItem onClick={() => shareToMessenger('telegram')}>
+                        <Icon name="Send" size={16} className="mr-2" />
+                        Telegram
+                      </DropdownMenuItem>
+                    </DropdownMenuContent>
+                  </DropdownMenu>
                 </div>
               )}
             </div>
