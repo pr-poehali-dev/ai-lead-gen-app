@@ -143,40 +143,46 @@ const Index = () => {
         </div>
 
         <div className="mb-8">
-          <div className="flex gap-2 border-b border-border">
+          <div className="flex flex-wrap gap-2 p-1 bg-muted/30 rounded-lg">
             <Button
               variant={activeTab === 'generate' ? 'default' : 'ghost'}
               onClick={() => setActiveTab('generate')}
-              className="rounded-b-none"
+              className="flex-1 min-w-[140px]"
             >
-              <Icon name="Sparkles" size={20} className="mr-2" />
-              Генерация лидов
+              <Icon name="Sparkles" size={18} className="mr-2" />
+              Генерация
             </Button>
             <Button
               variant={activeTab === 'connect' ? 'default' : 'ghost'}
               onClick={() => setActiveTab('connect')}
-              className="rounded-b-none"
+              className="flex-1 min-w-[140px]"
             >
-              <Icon name="Link" size={20} className="mr-2" />
+              <Icon name="Link" size={18} className="mr-2" />
               Соцсети
             </Button>
             <Button
               variant={activeTab === 'send' ? 'default' : 'ghost'}
               onClick={() => setActiveTab('send')}
-              className="rounded-b-none"
+              className="flex-1 min-w-[140px]"
               disabled={leads.length === 0}
             >
-              <Icon name="Send" size={20} className="mr-2" />
+              <Icon name="Send" size={18} className="mr-2" />
               Рассылка
+              {leads.length > 0 && (
+                <Badge variant="secondary" className="ml-2">{leads.length}</Badge>
+              )}
             </Button>
             <Button
               variant={activeTab === 'results' ? 'default' : 'ghost'}
               onClick={() => setActiveTab('results')}
-              className="rounded-b-none"
+              className="flex-1 min-w-[140px]"
               disabled={leads.length === 0}
             >
-              <Icon name="Table" size={20} className="mr-2" />
-              Результаты ({leads.length})
+              <Icon name="Table" size={18} className="mr-2" />
+              Результаты
+              {leads.length > 0 && (
+                <Badge variant="secondary" className="ml-2">{leads.length}</Badge>
+              )}
             </Button>
           </div>
         </div>
