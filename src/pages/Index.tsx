@@ -10,6 +10,9 @@ import Icon from '@/components/ui/icon';
 import { Progress } from '@/components/ui/progress';
 import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger } from '@/components/ui/dropdown-menu';
 import ThemeToggle from '@/components/ThemeToggle';
+import SocialConnect from '@/components/SocialConnect';
+import MessageComposer from '@/components/MessageComposer';
+import { useToast } from '@/hooks/use-toast';
 
 interface Lead {
   id: string;
@@ -24,6 +27,7 @@ interface Lead {
 }
 
 const Index = () => {
+  const { toast } = useToast();
   const [isGenerating, setIsGenerating] = useState(false);
   const [progress, setProgress] = useState(0);
   const [leads, setLeads] = useState<Lead[]>([]);
@@ -116,6 +120,14 @@ const Index = () => {
     }
   };
 
+  const handleSendMessage = (message: string, platform: string) => {
+    toast({
+      title: 'Сообщения отправлены!',
+      description: `Рассылка через ${platform} для ${leads.length} лидов запущена`,
+    });
+    console.log(`Отправка через ${platform}:`, message);
+  };
+
   return (
     <div className="min-h-screen bg-gradient-to-br from-slate-50 to-slate-100 dark:from-slate-900 dark:to-slate-800 transition-colors">
       <div className="container mx-auto px-4 py-8 max-w-7xl">
@@ -125,6 +137,11 @@ const Index = () => {
             <p className="text-muted-foreground text-lg">Интеллектуальная система для поиска и квалификации потенциальных клиентов</p>
           </div>
           <ThemeToggle />
+        </div>
+
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 mb-8">
+          <SocialConnect />
+          <MessageComposer leadsCount={leads.length} onSend={handleSendMessage} />
         </div>
 
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-6 mb-8">
