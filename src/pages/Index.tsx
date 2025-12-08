@@ -26,8 +26,11 @@ interface Lead {
   status: 'hot' | 'warm' | 'cold';
 }
 
+type TabType = 'generate' | 'connect' | 'send' | 'results';
+
 const Index = () => {
   const { toast } = useToast();
+  const [activeTab, setActiveTab] = useState<TabType>('generate');
   const [isGenerating, setIsGenerating] = useState(false);
   const [progress, setProgress] = useState(0);
   const [leads, setLeads] = useState<Lead[]>([]);
@@ -139,11 +142,47 @@ const Index = () => {
           <ThemeToggle />
         </div>
 
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 mb-8">
-          <SocialConnect />
-          <MessageComposer leadsCount={leads.length} onSend={handleSendMessage} />
+        <div className="mb-8">
+          <div className="flex gap-2 border-b border-border">
+            <Button
+              variant={activeTab === 'generate' ? 'default' : 'ghost'}
+              onClick={() => setActiveTab('generate')}
+              className="rounded-b-none"
+            >
+              <Icon name="Sparkles" size={20} className="mr-2" />
+              Генерация лидов
+            </Button>
+            <Button
+              variant={activeTab === 'connect' ? 'default' : 'ghost'}
+              onClick={() => setActiveTab('connect')}
+              className="rounded-b-none"
+            >
+              <Icon name="Link" size={20} className="mr-2" />
+              Соцсети
+            </Button>
+            <Button
+              variant={activeTab === 'send' ? 'default' : 'ghost'}
+              onClick={() => setActiveTab('send')}
+              className="rounded-b-none"
+              disabled={leads.length === 0}
+            >
+              <Icon name="Send" size={20} className="mr-2" />
+              Рассылка
+            </Button>
+            <Button
+              variant={activeTab === 'results' ? 'default' : 'ghost'}
+              onClick={() => setActiveTab('results')}
+              className="rounded-b-none"
+              disabled={leads.length === 0}
+            >
+              <Icon name="Table" size={20} className="mr-2" />
+              Результаты ({leads.length})
+            </Button>
+          </div>
         </div>
 
+        {activeTab === 'generate' && (
+          <>
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-6 mb-8">
           <Card className="hover-scale">
             <CardHeader className="pb-3">
@@ -376,8 +415,18 @@ const Index = () => {
             </div>
           </CardContent>
         </Card>
+          </>
+        )}
 
-        {leads.length > 0 && (
+        {activeTab === 'connect' && (
+          <SocialConnect />
+        )}
+
+        {activeTab === 'send' && (
+          <MessageComposer leadsCount={leads.length} onSend={handleSendMessage} />
+        )}
+
+        {activeTab === 'results' && (
           <Card>
             <CardHeader>
               <CardTitle className="flex items-center gap-2">
